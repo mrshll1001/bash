@@ -6,18 +6,21 @@ cd ~/Downloads
 
 for file in ~/Downloads/*.*
 do
-  extension="${file##*.}"
+  if [[ ! -d $file ]]; then
+    extension="${file##*.}"
 
-  if [ ! -d "$extension" ];
-  then
-    echo "Making directory $extension"
-    mkdir $extension
-  else
-    echo "Directory $extension exists"
+    if [ ! -d "$extension" ];
+    then
+      echo "Making directory $extension"
+      mkdir $extension
+    else
+      echo "Directory $extension exists"
+    fi
+
+    echo "Attempting to move $file to $extension"
+    mv "$file" ~/Downloads/$extension
   fi
 
-  echo "Attempting to move $file to $extension"
-  mv "$file" ~/Downloads/$extension
 
 
 done
